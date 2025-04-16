@@ -12,6 +12,8 @@ def main():
     screen_size = Vector2(1000, 700)
 
     screen = pygame.display.set_mode(screen_size)
+    pygame.font.init() 
+
 
     running = True
     while running:
