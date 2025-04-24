@@ -1,19 +1,16 @@
 import pygame
-from pygame import Vector2
 import menu_inicial
 import combate
 import menu_entre_niveis
 import menu_fim
+import globals
 
 
 def main():
     pygame.init()
 
-    screen_size = Vector2(1000, 700)
-
-    screen = pygame.display.set_mode(screen_size)
-    pygame.font.init() 
-
+    screen = pygame.display.set_mode(globals.screen_size)
+    pygame.font.init()
 
     running = True
     while running:
@@ -24,10 +21,7 @@ def main():
         if configs.get("sair"):
             running = False
 
-        status = {
-            "vida":10,
-            "dinheiro":10
-        }
+        status = {"vida": 10, "dinheiro": 10}
 
         for nivel in range(1000):
             status = combate.run(screen, efeitos, nivel, status)
@@ -43,7 +37,7 @@ def main():
             if efeitos.get("sair"):
                 running = False
                 break
-        
+
         pygame.quit()
 
 
