@@ -18,7 +18,6 @@ gameobjects = []
 class GameObject:
     def __init__(self, name: str):
         self.name = name
-        self.globals = globals
         gameobjects.append(self)
         print("instantiate " + name)
 
@@ -45,3 +44,7 @@ class GameObject:
     # retorna uma lista de todos os GameObjects com o nome
     def find(name):
         return [g for g in gameobjects if g.name == name]
+
+    def clear_scene():
+        global gameobjects
+        gameobjects = []

@@ -1,15 +1,13 @@
 import pygame
-import menu_inicial
-import combate
-import menu_entre_niveis
-import menu_fim
+import globals.var
+from scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
 import globals
 
 
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode(globals.screen_size)
+    screen = pygame.display.set_mode(globals.var.screen_size)
     pygame.font.init()
 
     running = True

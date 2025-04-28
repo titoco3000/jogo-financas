@@ -1,4 +1,4 @@
-from .gameobject import GameObject
+from .gameobject import GameObject, globals
 import pygame
 import math
 
@@ -20,7 +20,7 @@ class Projetil(GameObject):
         self.y += self.dy
         if (
             self.x < -bullet_radius
-            or self.x > self.globals.screen_size.x + bullet_radius
+            or self.x > globals.var.screen_size.x + bullet_radius
         ):
             self.__del__()
 
