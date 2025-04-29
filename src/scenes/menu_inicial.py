@@ -4,28 +4,28 @@ from classes.gameobject import GameObject
 
 
 def run(screen):
+    running = True
+
+    def iniciar_jogo():
+        nonlocal running
+        print("a")
+        running = False
+
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
     text_surface = my_font.render(
-        "Título do jogo - pressione enter para começar", False, (255, 0, 0)
+        "Título do jogo - precisamos desenhar esse menu", False, (255, 255, 255)
     )
 
     GameObject.clear_scene()
     Botao(
-        pygame.rect.Rect(100, 100, 100, 100),
-        "botao\n100\n200",
-        border_color=(0, 0, 255),
+        pygame.rect.Rect(100, 200, 100, 50),
+        "Iniciar jogo",
+        border_color=(100, 100, 100),
         border_width=2,
         radius=10,
-    )
-    Botao(
-        pygame.rect.Rect(150, 100, 100, 100),
-        "botao\n100\n200",
-        border_color=(0, 0, 255),
-        border_width=2,
-        radius=10,
+        on_click=iniciar_jogo,
     )
 
-    running = True
     while running:
         events = pygame.event.get()
         for event in events:
@@ -39,7 +39,7 @@ def run(screen):
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
-        screen.blit(text_surface, (0, 0))
+        screen.blit(text_surface, (100, 100))
         GameObject.draw_all(screen)
 
         pygame.display.flip()

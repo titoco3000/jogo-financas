@@ -18,6 +18,7 @@ def main():
 
         if configs.get("sair"):
             running = False
+            break
 
         status = {"vida": 10, "dinheiro": 10}
 
