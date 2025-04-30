@@ -18,11 +18,14 @@ def pie_piece(surface, pos: Vector2, raio, cor, inicio, fim):
 
 
 ANIMACAO_GIRO = [
-    (0, 1),
-    (-10, 0.5),
+    (0, 0.3),
+    (-10, 0.2),
     (-12, 0.3),
     (-10, 0.3),
-    (360, 4),
+    (3 * 360, 1),
+    (3 * 360 + 10, 0.1),
+    (3 * 360 + 12, 0.2),
+    (3 * 360, 0.3),
 ]
 
 
@@ -34,13 +37,21 @@ class Roleta(GameObject):
         )
 
         fatias = 10
-        cores = [
-            pygame.color.THECOLORS["red"],
-            pygame.color.THECOLORS["blue"],
-            pygame.color.THECOLORS["green"],
-            pygame.color.THECOLORS["yellow"],
-            pygame.color.THECOLORS["pink"],
-        ] * 2
+        seccoes = [
+            (pygame.color.THECOLORS["red"], "1111"),
+            (pygame.color.THECOLORS["blue"], "2222"),
+            (pygame.color.THECOLORS["green"], "3333"),
+            (pygame.color.THECOLORS["yellow"], "4444"),
+            (pygame.color.THECOLORS["pink"], "5555"),
+            (pygame.color.THECOLORS["red"], "6666"),
+            (pygame.color.THECOLORS["blue"], "7777"),
+            (pygame.color.THECOLORS["green"], "8888"),
+            (pygame.color.THECOLORS["yellow"], "9999"),
+            (pygame.color.THECOLORS["pink"], "1010"),
+        ]
+
+        fontsize = int(0.1 * radius)
+        self.font = pygame.font.SysFont(None, fontsize)
 
         largura_fatia = int(360 / fatias)
         for fatia in range(fatias):
@@ -48,10 +59,24 @@ class Roleta(GameObject):
                 self.surface_roleta,
                 Vector2(radius, radius),
                 radius,
-                cores[fatia],
+                seccoes[fatia][0],
                 fatia * largura_fatia,
                 math.ceil((fatia + 1) * largura_fatia) + 1,
             )
+
+        for fatia in range(fatias):
+            angle_deg = fatia * largura_fatia
+            angle_rad = math.radians(angle_deg)
+
+            text_surface = self.font.render(seccoes[fatia][1], True, (255, 255, 255))
+            rotated_text = pygame.transform.rotate(text_surface, -angle_deg)
+
+            text_radius = radius * 0.8
+
+            text_x = radius + text_radius * math.sin(angle_rad)
+            text_y = radius - text_radius * math.cos(angle_rad)
+            text_rect = rotated_text.get_rect(center=(text_x, text_y))
+            self.surface_roleta.blit(rotated_text, text_rect)
 
         self.pos = pos
         self.radius = radius
@@ -72,7 +97,7 @@ class Roleta(GameObject):
 
         if self.anim.playing:
             self.angulo = self.anim.get_state()
-            print(self.angulo)
+            # print(self.angulo)
 
     def draw(self, screen):
         rotated_surface = pygame.transform.rotate(self.surface_roleta, self.angulo)

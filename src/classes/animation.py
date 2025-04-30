@@ -23,8 +23,8 @@ class Animation:
         self.timeline = []
         t = 0
         for value, dt in keyframes:
-            self.timeline.append((value, t))
             t += dt
+            self.timeline.append((value, t))
         self.total_duration = t  # duração total da animação
         self.playing = False
 
@@ -53,6 +53,9 @@ class Animation:
             b_val, b_time = self.timeline[i + 1]
 
             if a_time <= current_time <= b_time:
+                # print(self.timeline)
+                # print(f"{a_time} <= {current_time} <= {b_time}")
+                # print(f"entre {i} e {i+1}")
                 t = (current_time - a_time) / (b_time - a_time)
                 return globals.utils.lerp(a_val, b_val, t)
 
