@@ -1,11 +1,14 @@
 import pygame
 from classes.jogador import Jogador
+from classes.inimigo import Spawner
 from classes.gameobject import GameObject
 
 
 def run(screen, efeitos, nivel, status):
     GameObject.clear_scene()
     jogador = Jogador()
+    Spawner(jogador)
+
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
     text_surface = my_font.render(
         "Combate - pressione enter para ganhar", False, (255, 0, 0)
@@ -32,5 +35,9 @@ def run(screen, efeitos, nivel, status):
 
         pygame.display.flip()
         clock.tick(60)
+
+        if jogador.health <= 0:
+            status["vida"] = 0
+            running = False
 
     return status

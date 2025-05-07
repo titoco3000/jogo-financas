@@ -2,6 +2,7 @@ from .gameobject import GameObject
 from .projetil import Projetil
 import pygame
 import math
+from pygame import Vector2
 
 player_radius = 20  # tamanho do player (circulo)
 player_speed = 5
@@ -10,7 +11,8 @@ player_speed = 5
 class Jogador(GameObject):
     def __init__(self):
         super().__init__("jogador")
-        self.pos = [400, 300]
+        self.pos = Vector2(400, 300)
+        self.health = 1
 
     def update(self, events):
         for event in events:
@@ -40,6 +42,22 @@ class Jogador(GameObject):
             self.pos[0] -= player_speed
         if keys[pygame.K_d]:
             self.pos[0] += player_speed
+
+        inimigos = GameObject.find("inimigo")
+        for enemy in inimigos:
+            # verifica se o projetil colidiu com o inimigo
+            if (
+                math.sqrt(
+                    (self.pos.x - enemy.pos.x) ** 2 + (self.pos.y - enemy.pos.y) ** 2
+                )
+                < enemy.radius + player_radius
+            ):
+                enemy.__del__()
+                if self.health > 0:
+                    self.health -= 1
+                if self.health <= 0:
+                    print("Jogador morreu")
+                break
 
     def draw(self, screen):
         pygame.draw.circle(

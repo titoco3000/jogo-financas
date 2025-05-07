@@ -28,14 +28,16 @@ def main():
                 running = False
                 break
 
-            if status.get("vida") <= 0:
-                menu_fim.run(screen)
-                break
-
-            efeitos = menu_entre_niveis.run(screen, efeitos)
-            if efeitos.get("sair"):
-                running = False
-                break
+            elif status.get("vida") <= 0:
+                status = menu_fim.run(screen)
+                if status.get("sair"):
+                    running = False
+                    break
+            else:
+                efeitos = menu_entre_niveis.run(screen, efeitos)
+                if efeitos.get("sair"):
+                    running = False
+                    break
 
         pygame.quit()
 
