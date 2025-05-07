@@ -3,7 +3,7 @@ from classes.botao import Botao
 from classes.gameobject import GameObject
 
 
-def run(screen):
+def run(screen, status):
     running = True
 
     def iniciar_jogo():
@@ -43,7 +43,8 @@ def run(screen):
         GameObject.draw_all(screen)
 
         pygame.display.flip()
-    return {
-        "volume": 1,
-        # outras configs
-    }
+
+    status["volume"] = 1
+    # outras configs
+
+    return status

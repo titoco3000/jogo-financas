@@ -4,9 +4,9 @@ from classes.inimigo import Spawner
 from classes.gameobject import GameObject
 
 
-def run(screen, efeitos, nivel, status):
+def run(screen, nivel, status):
     GameObject.clear_scene()
-    jogador = Jogador()
+    jogador = Jogador(status["vida"])
     Spawner(jogador)
 
     my_font = pygame.font.SysFont("Comic Sans MS", 30)

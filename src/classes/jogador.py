@@ -9,10 +9,10 @@ player_speed = 5
 
 
 class Jogador(GameObject):
-    def __init__(self):
+    def __init__(self, health):
         super().__init__("jogador")
         self.pos = Vector2(400, 300)
-        self.health = 1
+        self.health = health
 
     def update(self, events):
         for event in events:

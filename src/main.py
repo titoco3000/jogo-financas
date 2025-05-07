@@ -10,33 +10,30 @@ def main():
     screen = pygame.display.set_mode(globals.var.screen_size)
     pygame.font.init()
 
-    running = True
-    while running:
+    # status inicial
+    status = {"vida": 2, "dinheiro": 10}
+
+    while not status.get("sair", False):
         # inicio de uma run
-        configs = menu_inicial.run(screen)
-        efeitos = {}
+        configs = menu_inicial.run(screen, status)
 
         if configs.get("sair"):
             running = False
             break
 
-        status = {"vida": 10, "dinheiro": 10}
-
         for nivel in range(1000):
-            status = combate.run(screen, efeitos, nivel, status)
-            if status.get("sair"):
-                running = False
+            status = combate.run(screen, nivel, status)
+
+            if status.get("sair", False):
                 break
 
-            elif status.get("vida") <= 0:
-                status = menu_fim.run(screen)
-                if status.get("sair"):
-                    running = False
+            if status.get("vida") <= 0:
+                status = menu_fim.run(screen, status)
+                if status.get("sair", False):
                     break
             else:
-                efeitos = menu_entre_niveis.run(screen, efeitos)
-                if efeitos.get("sair"):
-                    running = False
+                status = menu_entre_niveis.run(screen, status)
+                if status.get("sair", False):
                     break
 
         pygame.quit()

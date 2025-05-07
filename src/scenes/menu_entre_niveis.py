@@ -3,7 +3,7 @@ from classes.roleta import Roleta
 from classes.gameobject import GameObject
 
 
-def run(screen, efeitos):
+def run(screen, status):
     GameObject.clear_scene()
 
     Roleta((750, 400), 250)
@@ -20,4 +20,4 @@ def run(screen, efeitos):
         GameObject.draw_all(screen)
 
         pygame.display.flip()
-    return {}
+    return status
