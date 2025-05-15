@@ -1,9 +1,11 @@
+import globals.var
+import globals.var
 import pygame
 from classes.botao import Botao
-from classes.gameobject import GameObject
+from classes.gameobject import GameObject, globals
 
 
-def run(screen, status):
+def run(screen):
     running = True
 
     def iniciar_jogo():
@@ -30,7 +32,8 @@ def run(screen, status):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                return {"sair": True}
+                globals.var.sair = True
+                return
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
@@ -44,7 +47,7 @@ def run(screen, status):
 
         pygame.display.flip()
 
-    status["volume"] = 1
+    globals.var.volume = 1
     # outras configs
 
-    return status
+    return

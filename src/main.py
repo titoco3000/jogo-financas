@@ -2,6 +2,7 @@ import pygame
 import globals.var
 from scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
 import globals
+import classes.efeitos as efeitos
 
 
 def main():
@@ -10,30 +11,30 @@ def main():
     screen = pygame.display.set_mode(globals.var.screen_size)
     pygame.font.init()
 
-    # status inicial
-    status = {"vida": 2, "dinheiro": 10}
+    # Adiciona efeito como teste
+    # globals.var.efeitos_no_jogador.add(efeitos.LimitarDirecoesTiro)
+    globals.var.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
 
-    while not status.get("sair", False):
+    while not globals.var.sair:
         # inicio de uma run
-        configs = menu_inicial.run(screen, status)
+        menu_inicial.run(screen)
 
-        if configs.get("sair"):
-            running = False
+        if globals.var.sair:
             break
 
         for nivel in range(1000):
-            status = combate.run(screen, nivel, status)
+            combate.run(screen, nivel)
 
-            if status.get("sair", False):
+            if globals.var.sair:
                 break
 
-            if status.get("vida") <= 0:
-                status = menu_fim.run(screen, status)
-                if status.get("sair", False):
+            if globals.var.vida <= 0:
+                menu_fim.run(screen)
+                if globals.var.sair:
                     break
             else:
-                status = menu_entre_niveis.run(screen, status)
-                if status.get("sair", False):
+                menu_entre_niveis.run(screen)
+                if globals.var.sair:
                     break
 
         pygame.quit()

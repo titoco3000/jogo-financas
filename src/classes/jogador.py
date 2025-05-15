@@ -1,5 +1,7 @@
-from .gameobject import GameObject
+import globals.var
+from .gameobject import GameObject, globals
 from .projetil import Projetil
+from . import efeitos
 import pygame
 import math
 from pygame import Vector2
@@ -31,6 +33,9 @@ class Jogador(GameObject):
                 angle = math.atan2(
                     self.dy, self.dx
                 )  # angulo em relaçao ao personagem e mouse
+
+                if globals.var.efeitos_no_jogador.has(efeitos.LimitarDirecoesTiro):
+                    angle = round(angle / (math.pi / 2)) * (math.pi / 2)
 
                 Projetil(self.pos[0], self.pos[1], angle)
         keys = pygame.key.get_pressed()

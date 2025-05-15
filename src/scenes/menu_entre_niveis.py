@@ -1,9 +1,9 @@
 import pygame
 from classes.roleta import Roleta
-from classes.gameobject import GameObject
+from classes.gameobject import GameObject, globals
 
 
-def run(screen, status):
+def run(screen):
     GameObject.clear_scene()
 
     Roleta((750, 400), 250)
@@ -13,11 +13,11 @@ def run(screen, status):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                return {"sair": True}
+                globals.var.sair = True
+                return
 
         GameObject.update_all(events)
         screen.fill((0, 0, 0))
         GameObject.draw_all(screen)
 
         pygame.display.flip()
-    return status

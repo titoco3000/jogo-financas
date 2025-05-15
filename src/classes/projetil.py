@@ -1,4 +1,5 @@
 from .gameobject import GameObject, globals
+from . import efeitos
 import pygame
 import math
 
@@ -12,12 +13,27 @@ class Projetil(GameObject):
         super().__init__("projetil")
         self.x = x
         self.y = y
+        self.angle = angle
         self.dx = math.cos(angle) * bullet_speed
         self.dy = math.sin(angle) * bullet_speed
 
+        self.steps_in_direction = 2
+        self.alt_direction = 1
+
     def update(self, events):
-        self.x += self.dx
-        self.y += self.dy
+        if globals.var.efeitos_no_jogador.has(efeitos.ZigZagProjetil):
+            self.steps_in_direction = self.steps_in_direction % 10 + 1
+            if self.steps_in_direction == 1:
+                self.alt_direction *= -1
+                self.dx = math.cos(self.angle + 0.5 * self.alt_direction) * bullet_speed
+                self.dy = math.sin(self.angle + 0.5 * self.alt_direction) * bullet_speed
+
+            print(self.steps_in_direction)
+            self.x += 1.2 * self.dx
+            self.y += 1.2 * self.dy
+        else:
+            self.x += self.dx
+            self.y += self.dy
         if (
             self.x < -bullet_radius
             or self.x > globals.var.screen_size.x + bullet_radius

@@ -1,12 +1,12 @@
 import pygame
 from classes.jogador import Jogador
 from classes.inimigo import Spawner
-from classes.gameobject import GameObject
+from classes.gameobject import GameObject, globals
 
 
-def run(screen, nivel, status):
+def run(screen, nivel):
     GameObject.clear_scene()
-    jogador = Jogador(status["vida"])
+    jogador = Jogador(globals.var.vida)
     Spawner(jogador)
 
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
@@ -21,7 +21,8 @@ def run(screen, nivel, status):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                return {"sair": True}
+                globals.var.sair = True
+                return
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     running = False
@@ -37,7 +38,5 @@ def run(screen, nivel, status):
         clock.tick(60)
 
         if jogador.health <= 0:
-            status["vida"] = 0
+            globals.var.vida = 0
             running = False
-
-    return status
