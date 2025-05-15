@@ -13,7 +13,8 @@ def main():
 
     # Adiciona efeito como teste
     # globals.var.efeitos_no_jogador.add(efeitos.LimitarDirecoesTiro)
-    globals.var.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
+    # globals.var.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
+    globals.var.efeitos_no_jogador.add(efeitos.DelayMovimentacao)
 
     while not globals.var.sair:
         # inicio de uma run

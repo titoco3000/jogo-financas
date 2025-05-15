@@ -28,7 +28,6 @@ class Projetil(GameObject):
                 self.dx = math.cos(self.angle + 0.5 * self.alt_direction) * bullet_speed
                 self.dy = math.sin(self.angle + 0.5 * self.alt_direction) * bullet_speed
 
-            print(self.steps_in_direction)
             self.x += 1.2 * self.dx
             self.y += 1.2 * self.dy
         else:

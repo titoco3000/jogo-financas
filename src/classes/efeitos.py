@@ -15,9 +15,11 @@ class Efeitos:
         return any(isinstance(x, tipo) for x in self.atuais)
 
 
-class DelayInput(Efeito):
+class DelayMovimentacao(Efeito):
     def __init__(self):
-        super().__init__("Estagnação econômica", "Causa um delay no input")
+        super().__init__(
+            "Estagnação econômica", "Causa um delay no input de movimentação"
+        )
 
 
 # não implementado
