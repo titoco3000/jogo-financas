@@ -2,9 +2,20 @@
 
 Coloquei esse nome enquanto não definimos o nome real
 
+## Instalação
+
+```bash
+pip install pygame # linux, windows
+py -m pip install pygame # laptop lab
+```
+
 ## Para rodar
 
-    python3 src/main.py
+```bash
+python3 -m src.main # linux
+python -m src.main # windows
+py -m src.main # laptop lab
+```
 
 ## Idéias Powerdowns
 
