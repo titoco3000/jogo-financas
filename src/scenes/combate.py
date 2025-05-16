@@ -7,6 +7,9 @@ import src.globals as globals
 
 def run(screen, nivel):
     GameObject.clear_scene()
+
+    globals.var.inimigos_mortos_nesta_rodada = 0
+
     jogador = Jogador(globals.var.vida)
     Spawner(jogador)
 
@@ -41,4 +44,7 @@ def run(screen, nivel):
 
         if jogador.health <= 0:
             globals.var.vida = 0
+            running = False
+
+        if globals.var.inimigos_mortos_nesta_rodada >= 5:
             running = False

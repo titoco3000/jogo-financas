@@ -24,7 +24,6 @@ def main():
 
         for nivel in range(1000):
             combate.run(screen, nivel)
-            print("sai do combate, devo sair do jogo? ", globals.var.sair)
 
             if globals.var.sair:
                 break
@@ -37,7 +36,6 @@ def main():
                 menu_entre_niveis.run(screen)
                 if globals.var.sair:
                     break
-        print("saí do loop de fases, devo sair do jogo? ", globals.var.sair)
 
         pygame.quit()
 

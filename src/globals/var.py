@@ -11,3 +11,4 @@ efeitos_no_jogador = Efeitos()
 sair = False
 volume = 1
 vida = 2
+inimigos_mortos_nesta_rodada = 0
