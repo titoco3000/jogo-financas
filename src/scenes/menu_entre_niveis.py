@@ -1,6 +1,7 @@
 import pygame
-from classes.roleta import Roleta
-from classes.gameobject import GameObject, globals
+from src.classes.roleta import Roleta
+from src.classes.gameobject import GameObject
+import src.globals as globals
 
 
 def run(screen):

@@ -1,7 +1,8 @@
 import pygame
-from classes.jogador import Jogador
-from classes.inimigo import Spawner
-from classes.gameobject import GameObject, globals
+from src.classes.jogador import Jogador
+from src.classes.inimigo import Spawner
+from src.classes.gameobject import GameObject
+import src.globals as globals
 
 
 def run(screen, nivel):
@@ -22,6 +23,7 @@ def run(screen, nivel):
         for event in events:
             if event.type == pygame.QUIT:
                 globals.var.sair = True
+                print(globals.var.sair)
                 return
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:

@@ -1,7 +1,6 @@
 import time
 
-import globals.utils
-from .gameobject import globals
+import src.globals as globals
 
 
 class Animation:

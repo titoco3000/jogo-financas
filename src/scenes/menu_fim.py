@@ -1,6 +1,5 @@
-import globals.var
 import pygame
-from classes.gameobject import globals
+import src.globals as globals
 
 
 def run(screen):

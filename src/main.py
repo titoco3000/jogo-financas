@@ -1,8 +1,7 @@
 import pygame
-import globals.var
-from scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
-import globals
-import classes.efeitos as efeitos
+from src.scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
+import src.globals as globals
+import src.classes.efeitos as efeitos
 
 
 def main():
@@ -14,7 +13,7 @@ def main():
     # Adiciona efeito como teste
     # globals.var.efeitos_no_jogador.add(efeitos.LimitarDirecoesTiro)
     # globals.var.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
-    globals.var.efeitos_no_jogador.add(efeitos.DelayMovimentacao)
+    # globals.var.efeitos_no_jogador.add(efeitos.DelayMovimentacao)
 
     while not globals.var.sair:
         # inicio de uma run
@@ -25,6 +24,7 @@ def main():
 
         for nivel in range(1000):
             combate.run(screen, nivel)
+            print("sai do combate, devo sair do jogo? ", globals.var.sair)
 
             if globals.var.sair:
                 break
@@ -37,6 +37,7 @@ def main():
                 menu_entre_niveis.run(screen)
                 if globals.var.sair:
                     break
+        print("saí do loop de fases, devo sair do jogo? ", globals.var.sair)
 
         pygame.quit()
 

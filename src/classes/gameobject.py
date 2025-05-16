@@ -5,13 +5,6 @@ lista de objetos da cena. Quando removido (usando del ou chamando diretamente __
 A cada frame, precisam ser chamadas em algum ponto as funções update_all e draw_all.
 """
 
-import os
-import sys
-
-# faz isso para poder importar script em nível acima
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-import globals
-
 gameobjects = []
 
 

@@ -1,4 +1,5 @@
-from .gameobject import GameObject, globals
+from .gameobject import GameObject
+import src.globals as globals
 from .animation import Animation
 import pygame
 from pygame import Vector2

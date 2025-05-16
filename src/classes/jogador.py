@@ -1,4 +1,5 @@
-from .gameobject import GameObject, globals
+from .gameobject import GameObject
+import src.globals as globals
 from .projetil import Projetil
 from . import efeitos
 import pygame

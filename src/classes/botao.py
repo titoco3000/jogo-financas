@@ -1,5 +1,6 @@
-from .gameobject import GameObject, globals
-from globals import utils, cursor
+from .gameobject import GameObject
+
+from src.globals import utils, cursor
 import pygame
 from typing import Callable
 

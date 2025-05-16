@@ -1,8 +1,7 @@
-import globals.var
-import globals.var
 import pygame
-from classes.botao import Botao
-from classes.gameobject import GameObject, globals
+from src.classes.botao import Botao
+from src.classes.gameobject import GameObject
+import src.globals as globals
 
 
 def run(screen):
