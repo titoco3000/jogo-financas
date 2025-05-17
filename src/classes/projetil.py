@@ -22,7 +22,7 @@ class Projetil(GameObject):
         self.alt_direction = 1
 
     def update(self, events):
-        if globals.var.efeitos_no_jogador.has(efeitos.ZigZagProjetil):
+        if globals.efeitos_no_jogador.has(efeitos.ZigZagProjetil):
             self.steps_in_direction = self.steps_in_direction % 10 + 1
             if self.steps_in_direction == 1:
                 self.alt_direction *= -1
@@ -34,10 +34,7 @@ class Projetil(GameObject):
         else:
             self.x += self.dx
             self.y += self.dy
-        if (
-            self.x < -bullet_radius
-            or self.x > globals.var.screen_size.x + bullet_radius
-        ):
+        if self.x < -bullet_radius or self.x > globals.screen_size.x + bullet_radius:
             self.__del__()
         else:
             # obtem uma lista de todos os inimigos
@@ -55,7 +52,7 @@ class Projetil(GameObject):
                     ):  # se a vida do inimigo for 0 ou menos, ele eh deletado
                         enemy.__del__()  # remove o inimigo da lista
 
-                        globals.var.inimigos_mortos_nesta_rodada += 1
+                        globals.inimigos_mortos_nesta_rodada += 1
 
                     break
 

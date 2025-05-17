@@ -1,6 +1,7 @@
 import time
 
 import src.globals as globals
+import src.utils as utils
 
 
 class Animation:
@@ -60,7 +61,7 @@ class Animation:
                 # print(f"{a_time} <= {current_time} <= {b_time}")
                 # print(f"entre {i} e {i+1}")
                 t = (current_time - a_time) / (b_time - a_time)
-                return globals.utils.lerp(a_val, b_val, t)
+                return utils.lerp(a_val, b_val, t)
 
         # Se não encontrar (não deveria acontecer)
         raise Exception("Tempo fora dos keyframes.")

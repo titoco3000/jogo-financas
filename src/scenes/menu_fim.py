@@ -7,7 +7,7 @@ def run(screen):
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                globals.var.sair = True
+                globals.sair = True
                 return
 
         screen.fill((0, 0, 0))

@@ -1,5 +1,5 @@
 import pygame
-import globals.var
+import globals
 from scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
 import globals
 
@@ -7,7 +7,7 @@ import globals
 def main():
     pygame.init()
 
-    screen = pygame.display.set_mode(globals.var.screen_size)
+    screen = pygame.display.set_mode(globals.screen_size)
     pygame.font.init()
 
     # status inicial

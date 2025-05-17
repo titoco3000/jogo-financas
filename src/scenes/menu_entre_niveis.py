@@ -44,16 +44,16 @@ def run(screen):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                globals.var.sair = True
+                globals.sair = True
                 return
 
         GameObject.update_all(events)
 
         if not trocou_label and roleta.ponto_critico:
             trocou_label = True
-            novo_efeito = globals.var.efeitos_no_jogador.escolher_novo_efeito()
+            novo_efeito = globals.efeitos_no_jogador.escolher_novo_efeito()
             if novo_efeito:
-                globals.var.efeitos_no_jogador.add(novo_efeito)
+                globals.efeitos_no_jogador.add(novo_efeito)
                 roleta.set_winner(novo_efeito().name)
             else:
                 roleta.set_winner("nada")

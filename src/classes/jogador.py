@@ -30,7 +30,7 @@ class Jogador(GameObject):
                 self.dy = mouse_y - self.pos[1]
                 angle = math.atan2(self.dy, self.dx)
 
-                if globals.var.efeitos_no_jogador.has(efeitos.LimitarDirecoesTiro):
+                if globals.efeitos_no_jogador.has(efeitos.LimitarDirecoesTiro):
                     angle = round(angle / (math.pi / 2)) * (math.pi / 2)
 
                 Projetil(self.pos[0], self.pos[1], angle)
@@ -52,7 +52,7 @@ class Jogador(GameObject):
         if pygame.K_s in self.teclas_pressionadas:
             direction_input.y += 1
 
-        usar_delay = globals.var.efeitos_no_jogador.has(efeitos.DelayMovimentacao)
+        usar_delay = globals.efeitos_no_jogador.has(efeitos.DelayMovimentacao)
 
         now = datetime.now()
 

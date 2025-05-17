@@ -31,7 +31,7 @@ def run(screen):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
-                globals.var.sair = True
+                globals.sair = True
                 return
 
             if event.type == pygame.KEYDOWN:
@@ -46,7 +46,7 @@ def run(screen):
 
         pygame.display.flip()
 
-    globals.var.volume = 1
+    globals.volume = 1
     # outras configs
 
     return

@@ -31,10 +31,7 @@ class Projetil(GameObject):
         self.x += self.dx
         self.y += self.dy
 
-        if (
-            self.x < -bullet_radius
-            or self.x > globals.var.screen_size.x + bullet_radius
-        ):
+        if self.x < -bullet_radius or self.x > globals.screen_size.x + bullet_radius:
             self.__del__()
         else:
             inimigos = GameObject.find("inimigo")

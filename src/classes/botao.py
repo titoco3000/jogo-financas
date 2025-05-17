@@ -1,7 +1,7 @@
+from src.utils import cursor, lerp
 from .gameobject import GameObject
 from .text import Text
 
-from src.globals import utils, cursor
 import pygame
 from typing import Callable
 
@@ -30,7 +30,7 @@ class Botao(GameObject):
         self.border_width = border_width
 
         if hover_color is None:
-            self.hover_color = utils.lerp(background, border_color, 0.1)
+            self.hover_color = lerp(background, border_color, 0.1)
         else:
             self.hover_color = hover_color
 
@@ -51,14 +51,14 @@ class Botao(GameObject):
 
         if mouse_is_inside:
             if self.hover_color:
-                self.draw_color = utils.lerp(self.draw_color, self.hover_color, 0.02)
+                self.draw_color = lerp(self.draw_color, self.hover_color, 0.02)
 
             for event in events:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.on_click:
                         self.on_click()
         elif self.hover_color:
-            self.draw_color = utils.lerp(self.draw_color, self.background, 0.05)
+            self.draw_color = lerp(self.draw_color, self.background, 0.05)
 
     def draw(self, screen):
         # Desenha background
