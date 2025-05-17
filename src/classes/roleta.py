@@ -4,7 +4,7 @@ from .animation import Animation
 import pygame
 from pygame import Vector2
 import math
-import random
+from src.utils import sound
 
 
 def create_surface_roleta(fatias, radius, font):
@@ -93,6 +93,7 @@ class Roleta(GameObject):
         self.rodar()
 
     def rodar(self):
+        sound.roleta.play()
 
         self.anim.reset()
         self.anim.play()

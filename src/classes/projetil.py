@@ -45,15 +45,8 @@ class Projetil(GameObject):
                     math.sqrt((self.x - enemy.pos.x) ** 2 + (self.y - enemy.pos.y) ** 2)
                     < enemy.radius + bullet_radius
                 ):
+                    enemy.hit()
                     self.__del__()  # remover bullet colidido
-                    enemy.health -= 1  # diminui hp do inimigo atingido
-                    if (
-                        enemy.health <= 0
-                    ):  # se a vida do inimigo for 0 ou menos, ele eh deletado
-                        enemy.__del__()  # remove o inimigo da lista
-
-                        globals.inimigos_mortos_nesta_rodada += 1
-
                     break
 
     def draw(self, screen):

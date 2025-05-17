@@ -3,6 +3,8 @@ import pygame
 from pygame import Vector2
 import math
 import random
+from src.utils import sound
+from src import globals
 
 enemy_radius = 15  # tamanho do inimigo
 enemy_speed = 2  # movimento
@@ -44,6 +46,14 @@ class Inimigo(GameObject):
         self.pos = pos_inicial
         self.health = health
         self.radius = enemy_radius
+
+    def hit(self):
+        sound.hit.play()
+        self.health -= 1
+        if self.health <= 0:  # se a vida do inimigo for 0 ou menos, ele eh deletado
+            sound.morte_inimigo.play()
+            globals.inimigos_mortos_nesta_rodada += 1
+            self.__del__()
 
     def update(self, events):
         dx = self.ref_jogador.pos.x - self.pos.x

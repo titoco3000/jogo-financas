@@ -6,6 +6,7 @@ import pygame
 import math
 from pygame import Vector2
 from datetime import datetime, timedelta
+from src.utils import sound
 
 player_radius = 20  # tamanho do player (circulo)
 player_speed = 5
@@ -83,7 +84,11 @@ class Jogador(GameObject):
                 enemy.__del__()
                 if self.health > 0:
                     self.health -= 1
+                    sound.hit.play()
+
                 if self.health <= 0:
+                    sound.morte.play()
+
                     print("Jogador morreu")
                 break
 

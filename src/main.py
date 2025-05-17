@@ -15,6 +15,10 @@ import src.classes.efeitos as efeitos
 # globals.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
 # globals.efeitos_no_jogador.add(efeitos.DelayMovimentacao)
 
+from src.utils import sound
+
+sound.fundo.play(-1)
+
 while not globals.sair:
     # inicio de uma run
     menu_inicial.run(screen)
