@@ -1,4 +1,5 @@
 from .gameobject import GameObject
+from .text import Text
 
 from src.globals import utils, cursor
 import pygame
@@ -21,13 +22,11 @@ class Botao(GameObject):
     ):
         super().__init__("botao")
         self.rect = rect
-        self.text = text
         self.on_click = on_click
         self.radius = radius
         self.background = background
         self.draw_color = background
         self.border_color = border_color
-        self.text_color = text_color
         self.border_width = border_width
 
         if hover_color is None:
@@ -35,22 +34,9 @@ class Botao(GameObject):
         else:
             self.hover_color = hover_color
 
-        if font is None:
-            self.font = pygame.font.SysFont(None, 24)  # fonte e tamanho default
-        else:
-            self.font = font
-
-        self._render_text_lines()
+        self.text_element = Text(rect, text, text_color, font)
 
         self._mouse_inside = False  # <- controla se o mouse está dentro
-
-    def _render_text_lines(self):
-        """Prepara text surfaces para cada linha"""
-        self.text_surfaces = []
-        lines = self.text.split("\n")
-        for line in lines:
-            surface = self.font.render(line, True, self.text_color)
-            self.text_surfaces.append(surface)
 
     def update(self, events):
         mouse_pos = pygame.mouse.get_pos()
@@ -86,19 +72,8 @@ class Botao(GameObject):
                 border_radius=self.radius,
             )
 
-        total_text_height = sum(surface.get_height() for surface in self.text_surfaces)
-
-        current_y = self.rect.centery - total_text_height // 2
-
-        for surface in self.text_surfaces:
-            text_x = self.rect.centerx - surface.get_width() // 2
-            screen.blit(surface, (text_x, current_y))
-            current_y += surface.get_height()
-
     def set_text(self, new_text):
-        """Muda texto dinamicamente e re-renderiza"""
-        self.text = new_text
-        self._render_text_lines()
+        self.text_element.set_text(new_text)
 
     def __del__(self):
         if self._mouse_inside:

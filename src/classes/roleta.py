@@ -4,18 +4,50 @@ from .animation import Animation
 import pygame
 from pygame import Vector2
 import math
+import random
 
 
-def pie_piece(surface, pos: Vector2, raio, cor, inicio, fim):
-    p = [pos]
-    for n in range(inicio, fim):
-        x = pos.x + int(raio * math.cos(n * math.pi / 180))
-        y = pos.y + int(raio * math.sin(n * math.pi / 180))
-        p.append(Vector2(x, y))
-    p.append(pos)
+def create_surface_roleta(fatias, radius, font):
 
-    if len(p) > 2:
-        pygame.draw.polygon(surface, cor, p)
+    def pie_piece(surface, pos: Vector2, raio, cor, inicio, fim):
+        p = [pos]
+        for n in range(inicio, fim):
+            x = pos.x + int(raio * math.cos(n * math.pi / 180))
+            y = pos.y + int(raio * math.sin(n * math.pi / 180))
+            p.append(Vector2(x, y))
+        p.append(pos)
+
+        if len(p) > 2:
+            pygame.draw.polygon(surface, cor, p)
+
+    surface_roleta = pygame.Surface((2 * radius, 2 * radius), pygame.SRCALPHA, 32)
+
+    largura_fatia = int(360 / len(fatias))
+    for fatia in range(len(fatias)):
+        pie_piece(
+            surface_roleta,
+            Vector2(radius, radius),
+            radius,
+            fatias[fatia][0],
+            fatia * largura_fatia,
+            math.ceil((fatia + 1) * largura_fatia) + 1,
+        )
+
+    for fatia in range(len(fatias)):
+        angle_deg = (fatia + 3) * largura_fatia
+        angle_rad = math.radians(angle_deg)
+
+        text_surface = font.render(fatias[fatia][1], True, (255, 255, 255))
+        rotated_text = pygame.transform.rotate(text_surface, -angle_deg)
+
+        text_radius = radius * 0.8
+
+        text_x = radius + text_radius * math.sin(angle_rad)
+        text_y = radius - text_radius * math.cos(angle_rad)
+        text_rect = rotated_text.get_rect(center=(text_x, text_y))
+        surface_roleta.blit(rotated_text, text_rect)
+
+    return surface_roleta
 
 
 ANIMACAO_GIRO = [
@@ -31,74 +63,55 @@ ANIMACAO_GIRO = [
 
 
 class Roleta(GameObject):
-    def __init__(self, pos, radius):
+    def __init__(self, pos, radius, labels):
         super().__init__("roleta")
-        self.surface_roleta = pygame.Surface(
-            (2 * radius, 2 * radius), pygame.SRCALPHA, 32
-        )
 
-        fatias = 10
-        seccoes = [
-            (pygame.color.THECOLORS["red"], "1111"),
-            (pygame.color.THECOLORS["blue"], "2222"),
-            (pygame.color.THECOLORS["green"], "3333"),
-            (pygame.color.THECOLORS["yellow"], "4444"),
-            (pygame.color.THECOLORS["pink"], "5555"),
-            (pygame.color.THECOLORS["red"], "6666"),
-            (pygame.color.THECOLORS["blue"], "7777"),
-            (pygame.color.THECOLORS["green"], "8888"),
-            (pygame.color.THECOLORS["yellow"], "9999"),
-            (pygame.color.THECOLORS["pink"], "1010"),
+        self.fatias = [
+            (pygame.color.THECOLORS["red"], labels[0]),
+            (pygame.color.THECOLORS["blue"], labels[1]),
+            (pygame.color.THECOLORS["green"], labels[2]),
+            ((206, 155, 16), labels[3]),
+            ((226, 32, 229), labels[4]),
+            (pygame.color.THECOLORS["red"], labels[5]),
+            (pygame.color.THECOLORS["blue"], labels[6]),
+            (pygame.color.THECOLORS["green"], labels[7]),
+            ((206, 155, 16), labels[8]),
+            ((226, 32, 229), labels[9]),
         ]
 
         fontsize = int(0.1 * radius)
         self.font = pygame.font.SysFont(None, fontsize)
 
-        largura_fatia = int(360 / fatias)
-        for fatia in range(fatias):
-            pie_piece(
-                self.surface_roleta,
-                Vector2(radius, radius),
-                radius,
-                seccoes[fatia][0],
-                fatia * largura_fatia,
-                math.ceil((fatia + 1) * largura_fatia) + 1,
-            )
-
-        for fatia in range(fatias):
-            angle_deg = fatia * largura_fatia
-            angle_rad = math.radians(angle_deg)
-
-            text_surface = self.font.render(seccoes[fatia][1], True, (255, 255, 255))
-            rotated_text = pygame.transform.rotate(text_surface, -angle_deg)
-
-            text_radius = radius * 0.8
-
-            text_x = radius + text_radius * math.sin(angle_rad)
-            text_y = radius - text_radius * math.cos(angle_rad)
-            text_rect = rotated_text.get_rect(center=(text_x, text_y))
-            self.surface_roleta.blit(rotated_text, text_rect)
-
         self.pos = pos
         self.radius = radius
         self.angulo = 0
 
+        self.surface_roleta = create_surface_roleta(self.fatias, self.radius, self.font)
+
         self.anim = Animation(ANIMACAO_GIRO)
+        self.ponto_critico = False
         self.rodar()
 
     def rodar(self):
+
         self.anim.reset()
         self.anim.play()
+
+    def set_winner(self, label):
+        self.fatias[7] = (self.fatias[7][0], label)
+        self.surface_roleta = create_surface_roleta(self.fatias, self.radius, self.font)
 
     def update(self, events):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    self.rodar()
+                    # self.rodar()
+                    pass
 
         if self.anim.playing:
             self.angulo = self.anim.get_state()
-            # print(self.angulo)
+            if self.angulo > 270 and not self.ponto_critico:
+                self.ponto_critico = True
 
     def draw(self, screen):
         rotated_surface = pygame.transform.rotate(self.surface_roleta, self.angulo)

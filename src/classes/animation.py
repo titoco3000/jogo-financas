@@ -10,6 +10,8 @@ class Animation:
     keyframes é uma lista de (valor, tempo), onde valor é um
     vetor ou escalar e tempo, o intervalo desde o keyframe anterior.
 
+    Outro valor possível de um keyframe é uma função, que será imediatamente invocada ao fim do keyframe anterior.
+
     Todos os valores devem ter a mesma dimensão.
     get_state retorna um vetor dessa dimensão com base nos pontos
     """
@@ -26,6 +28,7 @@ class Animation:
             self.timeline.append((value, t))
         self.total_duration = t  # duração total da animação
         self.playing = False
+        self.done = False
 
     def reset(self):
         self.start_time = time.time()
@@ -44,6 +47,7 @@ class Animation:
         # Se o tempo for depois do último keyframe
         if current_time >= self.timeline[-1][1]:
             self.playing = False
+            self.done = True
             return self.timeline[-1][0]
 
         # Procurar o intervalo certo
