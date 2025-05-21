@@ -33,7 +33,7 @@ def run(screen):
 
     random.shuffle(PROMESSAS_VAZIAS)
 
-    roleta = Roleta((750, 400), 250, PROMESSAS_VAZIAS)
+    roleta = Roleta((700, 400), 250, PROMESSAS_VAZIAS)
 
     trocou_label = False
     rodou = False

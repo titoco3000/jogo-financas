@@ -18,11 +18,6 @@ def run(screen, nivel):
     if globals.efeitos_no_jogador.has(efeitos.Publicidade):
         Publicidade()
 
-    my_font = pygame.font.SysFont("Comic Sans MS", 30)
-    text_surface = my_font.render(
-        "Combate - pressione enter para ganhar", False, (255, 255, 255)
-    )
-
     background = pygame.image.load("assets/sprites/background.png")
     clock = pygame.time.Clock()
 
@@ -35,15 +30,11 @@ def run(screen, nivel):
                 globals.sair = True
                 print(globals.sair)
                 return
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    running = False
 
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
         screen.blit(background, (0, 0))
-        screen.blit(text_surface, (0, 0))
 
         GameObject.draw_all(screen)
 

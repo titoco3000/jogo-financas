@@ -34,11 +34,10 @@ while not globals.sair:
 
         if globals.vida <= 0:
             menu_fim.run(screen)
-            if globals.sair:
-                break
+            break
         else:
             menu_entre_niveis.run(screen)
             if globals.sair:
                 break
 
-    pygame.quit()
+pygame.quit()

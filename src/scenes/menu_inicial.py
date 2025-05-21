@@ -12,11 +12,6 @@ def run(screen):
         print("a")
         running = False
 
-    my_font = pygame.font.SysFont("Comic Sans MS", 30)
-    text_surface = my_font.render(
-        "Título do jogo - precisamos desenhar esse menu", False, (255, 255, 255)
-    )
-
     GameObject.clear_scene()
     Botao(
         pygame.rect.Rect(100, 200, 100, 50),
@@ -34,14 +29,9 @@ def run(screen):
                 globals.sair = True
                 return
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    running = False
-
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
-        screen.blit(text_surface, (100, 100))
         GameObject.draw_all(screen)
 
         pygame.display.flip()

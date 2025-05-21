@@ -76,6 +76,9 @@ class Botao(GameObject):
         self.text_element.set_text(new_text)
 
     def __del__(self):
-        if self._mouse_inside:
-            cursor.reset_pointer()
+        try:
+            if self._mouse_inside:
+                cursor.reset_pointer()
+        except:
+            pass
         super().__del__()

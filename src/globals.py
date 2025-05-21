@@ -12,3 +12,11 @@ sair = False
 volume = 1
 vida = 2
 inimigos_mortos_nesta_rodada = 0
+
+
+def reset():
+    global efeitos_no_jogador, sair, volume, vida, inimigos_mortos_nesta_rodada
+    efeitos_no_jogador.atuais = []
+    sair = False
+    vida = 2
+    inimigos_mortos_nesta_rodada = 0
