@@ -5,7 +5,7 @@ Arquivo que guarda todas as variaveis, constantes ou não, que devem ser acessí
 from pygame import Vector2
 from src.classes.efeitos import Efeitos
 
-screen_size = Vector2(1000, 700)
+screen_size = Vector2(960, 720)
 
 efeitos_no_jogador = Efeitos()
 sair = False

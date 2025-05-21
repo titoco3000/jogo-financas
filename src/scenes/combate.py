@@ -15,8 +15,10 @@ def run(screen, nivel):
 
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
     text_surface = my_font.render(
-        "Combate - pressione enter para ganhar", False, (255, 0, 0)
+        "Combate - pressione enter para ganhar", False, (255, 255, 255)
     )
+
+    background = pygame.image.load("src/sprites/background.png")
     clock = pygame.time.Clock()
 
     running = True
@@ -35,6 +37,7 @@ def run(screen, nivel):
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
         screen.blit(text_surface, (0, 0))
 
         GameObject.draw_all(screen)

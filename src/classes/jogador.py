@@ -93,6 +93,4 @@ class Jogador(GameObject):
                 break
 
     def draw(self, screen):
-        pygame.draw.circle(
-            screen, (255, 255, 255), (int(self.pos[0]), int(self.pos[1])), player_radius
-        )
+        screen.blit(pygame.image.load("src/sprites/char.png"), (self.pos[0], self.pos[1]))
