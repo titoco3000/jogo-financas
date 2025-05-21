@@ -9,8 +9,9 @@ gameobjects = []
 
 
 class GameObject:
-    def __init__(self, name: str):
+    def __init__(self, name: str, render_priority: int = 0):
         self.name = name
+        self.render_priority = render_priority
         gameobjects.append(self)
         print("instantiate " + name)
 
@@ -31,7 +32,10 @@ class GameObject:
             g.update(events)
 
     def draw_all(screen):
-        for g in gameobjects:
+        # Cria uma cópia da lista e a ordena com base na render_priority
+        # Objetos com prioridade maior serão desenhados depois (por cima)
+        sorted_gameobjects = sorted(gameobjects, key=lambda g: g.render_priority)
+        for g in sorted_gameobjects:
             g.draw(screen)
 
     # retorna uma lista de todos os GameObjects com o nome

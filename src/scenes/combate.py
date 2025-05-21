@@ -3,6 +3,8 @@ from src.classes.jogador import Jogador
 from src.classes.inimigo import Spawner
 from src.classes.gameobject import GameObject
 import src.globals as globals
+from src.classes.publicidade import Publicidade
+import src.classes.efeitos as efeitos
 
 
 def run(screen, nivel):
@@ -12,6 +14,9 @@ def run(screen, nivel):
 
     jogador = Jogador()
     Spawner(jogador)
+
+    if globals.efeitos_no_jogador.has(efeitos.Publicidade):
+        Publicidade()
 
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
     text_surface = my_font.render(

@@ -11,7 +11,7 @@ screen = pygame.display.set_mode(globals.screen_size)
 import src.classes.efeitos as efeitos
 
 # Adiciona efeito como teste
-# globals.efeitos_no_jogador.add(efeitos.LimitarDirecoesTiro)
+# globals.efeitos_no_jogador.add(efeitos.Publicidade)
 # globals.efeitos_no_jogador.add(efeitos.ZigZagProjetil)
 # globals.efeitos_no_jogador.add(efeitos.DelayMovimentacao)
 
