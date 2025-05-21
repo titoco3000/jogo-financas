@@ -2,6 +2,7 @@ from .gameobject import GameObject
 import src.globals as globals
 from . import efeitos
 import pygame
+from pygame import Vector2
 import math
 
 bullet_speed = 10
@@ -42,12 +43,19 @@ class Projetil(GameObject):
         else:
             # obtem uma lista de todos os inimigos
             inimigos = GameObject.find("inimigo")
+
+            bullet_center = Vector2(self.x, self.y)
+
             for enemy in inimigos:
-                # verifica se o projetil colidiu com o inimigo
-                if (
-                    math.sqrt((self.x - enemy.pos.x) ** 2 + (self.y - enemy.pos.y) ** 2)
-                    < enemy.radius + bullet_radius
-                ):
+                enemy_rect = pygame.Rect(
+                    enemy.pos.x, enemy.pos.y, enemy.dimension.x, enemy.dimension.y
+                )
+
+                closest_x = max(enemy_rect.left, min(bullet_center.x, enemy_rect.right))
+                closest_y = max(enemy_rect.top, min(bullet_center.y, enemy_rect.bottom))
+                closest_point = Vector2(closest_x, closest_y)
+
+                if (closest_point - bullet_center).length() < bullet_radius:
                     enemy.hit()
                     self.__del__()  # remover bullet colidido
                     break

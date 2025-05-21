@@ -18,23 +18,28 @@ class Jogador(GameObject):
     def __init__(self, health):
         super().__init__("jogador")
         self.pos = Vector2(400, 300)
-        self.health = health
+
         self.teclas_pressionadas = set()
 
         self.buffered_inputs = []
+        self.dimension = Vector2(38, 89)
 
     def update(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
-                self.dx = mouse_x - self.pos[0]
-                self.dy = mouse_y - self.pos[1]
-                angle = math.atan2(self.dy, self.dx)
+                dx = mouse_x - (self.pos[0] + self.dimension.x // 2)
+                dy = mouse_y - (self.pos[1] + self.dimension.y // 2)
+                angle = math.atan2(dy, dx)
 
                 if globals.efeitos_no_jogador.has(efeitos.LimitarDirecoesTiro):
                     angle = round(angle / (math.pi / 2)) * (math.pi / 2)
 
-                Projetil(self.pos[0], self.pos[1], angle)
+                Projetil(
+                    self.pos[0] + self.dimension.x // 2,
+                    self.pos[1] + self.dimension.y // 2,
+                    angle,
+                )
 
             elif event.type == pygame.KEYDOWN:
                 self.teclas_pressionadas.add(event.key)
@@ -74,21 +79,22 @@ class Jogador(GameObject):
                 self.pos += direction_input * player_speed
 
         inimigos = GameObject.find("inimigo")
+        player_rect = pygame.Rect(
+            self.pos.x, self.pos.y, self.dimension.x, self.dimension.y
+        )
         for enemy in inimigos:
-            if (
-                math.sqrt(
-                    (self.pos.x - enemy.pos.x) ** 2 + (self.pos.y - enemy.pos.y) ** 2
-                )
-                < enemy.radius + player_radius
-            ):
+            enemy_rect = pygame.Rect(
+                enemy.pos.x, enemy.pos.y, enemy.dimension.x, enemy.dimension.y
+            )
+
+            if player_rect.colliderect(enemy_rect):
                 enemy.__del__()
-                if self.health > 0:
-                    self.health -= 1
+                if globals.vida > 0:
+                    globals.vida -= 1
                     sound.hit.play()
 
-                if self.health <= 0:
+                if globals.vida <= 0:
                     sound.morte.play()
-
                     print("Jogador morreu")
                 break
 
@@ -96,3 +102,9 @@ class Jogador(GameObject):
         screen.blit(
             pygame.image.load("assets/sprites/char.png"), (self.pos[0], self.pos[1])
         )
+
+        for i in range(globals.vida):
+            screen.blit(
+                pygame.image.load("assets/sprites/heart.png"),
+                (self.pos[0] - 10, self.pos[1] + i * 10),
+            )

@@ -45,8 +45,7 @@ def run(screen, nivel):
         pygame.display.flip()
         clock.tick(60)
 
-        if jogador.health <= 0:
-            globals.vida = 0
+        if globals.vida <= 0:
             running = False
 
         if globals.inimigos_mortos_nesta_rodada >= 5:

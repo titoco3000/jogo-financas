@@ -6,7 +6,6 @@ import random
 from src.utils import sound
 from src import globals
 
-enemy_radius = 15  # tamanho do inimigo
 enemy_speed = 2  # movimento
 enemy_spawn_distance = (
     300  # distancia minima para spawn de inimigos (quanto maior mais longe ele spawna)
@@ -45,7 +44,7 @@ class Inimigo(GameObject):
         self.ref_jogador = ref_jogador
         self.pos = pos_inicial
         self.health = health
-        self.radius = enemy_radius
+        self.dimension = Vector2(32, 32)
 
     def hit(self):
         sound.hit.play()
@@ -64,6 +63,16 @@ class Inimigo(GameObject):
             self.pos.y += (dy / distance) * enemy_speed
 
     def draw(self, screen):
-        pygame.draw.circle(
-            screen, (0, 255, 0), (int(self.pos[0]), int(self.pos[1])), enemy_radius
+        # pygame.draw.circle(
+        #     screen, (0, 255, 0), (int(self.pos[0]), int(self.pos[1])), enemy_radius
+        # )
+        pygame.draw.rect(
+            screen,
+            (0, 255, 0),
+            (
+                int(self.pos[0]),
+                int(self.pos[1]),
+                self.dimension.x,
+                self.dimension.y,
+            ),
         )
