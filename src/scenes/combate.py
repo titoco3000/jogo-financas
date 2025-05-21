@@ -18,7 +18,7 @@ def run(screen, nivel):
         "Combate - pressione enter para ganhar", False, (255, 255, 255)
     )
 
-    background = pygame.image.load("src/sprites/background.png")
+    background = pygame.image.load("assets/sprites/background.png")
     clock = pygame.time.Clock()
 
     running = True

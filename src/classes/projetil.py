@@ -5,8 +5,8 @@ import pygame
 import math
 
 bullet_speed = 10
-bullet_radius = 5  # tamanho bullets
-RED = (255, 0, 0)
+bullet_radius = 10  # tamanho bullets
+COLOR = (242, 62, 3)
 
 
 class Projetil(GameObject):
@@ -20,6 +20,9 @@ class Projetil(GameObject):
 
         self.steps_in_direction = 2
         self.alt_direction = 1
+
+        font = pygame.font.SysFont(None, 24)
+        self.sifrao = font.render("$", True, (255, 255, 255))
 
     def update(self, events):
         if globals.efeitos_no_jogador.has(efeitos.ZigZagProjetil):
@@ -50,4 +53,11 @@ class Projetil(GameObject):
                     break
 
     def draw(self, screen):
-        pygame.draw.circle(screen, RED, (int(self.x), int(self.y)), bullet_radius)
+        pygame.draw.circle(screen, COLOR, (int(self.x), int(self.y)), bullet_radius)
+        screen.blit(
+            self.sifrao,
+            (
+                int(self.x - self.sifrao.get_width() / 2),
+                int(self.y - self.sifrao.get_height() / 2),
+            ),
+        )

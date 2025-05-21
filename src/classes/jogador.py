@@ -93,4 +93,6 @@ class Jogador(GameObject):
                 break
 
     def draw(self, screen):
-        screen.blit(pygame.image.load("src/sprites/char.png"), (self.pos[0], self.pos[1]))
+        screen.blit(
+            pygame.image.load("assets/sprites/char.png"), (self.pos[0], self.pos[1])
+        )
