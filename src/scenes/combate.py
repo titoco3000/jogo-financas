@@ -10,7 +10,7 @@ def run(screen, nivel):
 
     globals.inimigos_mortos_nesta_rodada = 0
 
-    jogador = Jogador(globals.vida)
+    jogador = Jogador()
     Spawner(jogador)
 
     my_font = pygame.font.SysFont("Comic Sans MS", 30)
