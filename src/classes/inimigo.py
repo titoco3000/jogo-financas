@@ -44,7 +44,7 @@ class Inimigo(GameObject):
         self.ref_jogador = ref_jogador
         self.pos = pos_inicial
         self.health = health
-        self.dimension = Vector2(32, 32)
+        self.dimension = Vector2(30, 41)
 
     def hit(self):
         sound.hit.play()
@@ -66,13 +66,16 @@ class Inimigo(GameObject):
         # pygame.draw.circle(
         #     screen, (0, 255, 0), (int(self.pos[0]), int(self.pos[1])), enemy_radius
         # )
-        pygame.draw.rect(
-            screen,
-            (0, 255, 0),
-            (
-                int(self.pos[0]),
-                int(self.pos[1]),
-                self.dimension.x,
-                self.dimension.y,
-            ),
+        screen.blit(
+            pygame.image.load("assets/sprites/bill.png"), (self.pos[0], self.pos[1])
         )
+        # pygame.draw.rect(
+        #     screen,
+        #     (0, 255, 0),
+        #     (
+        #         int(self.pos[0]),
+        #         int(self.pos[1]),
+        #         self.dimension.x,
+        #         self.dimension.y,
+        #     ),
+        # )

@@ -3,6 +3,8 @@ import pygame
 pygame.init()
 pygame.font.init()
 
+pygame.display.set_caption("Jogo das BETs")
+
 from src.scenes import menu_inicial, combate, menu_entre_niveis, menu_fim
 import src.globals as globals
 
