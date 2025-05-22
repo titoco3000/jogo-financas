@@ -62,12 +62,13 @@ def run(screen, nivel):
         if globals.vida <= 0:
             running = False
 
-        if globals.inimigos_mortos_nesta_rodada >= 10 and globals.jogadas < 5:
-            Botao(
-                pygame.rect.Rect(75, 590, 120, 50),
-                "Rodar roleta",
-                border_color=(100, 100, 100),
-                border_width=2,
-                radius=10,
-                on_click=rodarroleta,
-            )
+        if globals.inimigos_mortos_nesta_rodada >= 5 and globals.jogadas < 5:
+            rodarroleta()
+            # Botao(
+            #     pygame.rect.Rect(75, 590, 120, 50),
+            #     "Rodar roleta",
+            #     border_color=(100, 100, 100),
+            #     border_width=2,
+            #     radius=10,
+            #     on_click=rodarroleta,
+            # )

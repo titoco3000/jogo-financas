@@ -36,7 +36,7 @@ class Jogador(GameObject):
             self.ammo = min(globals.max_ammo, self.ammo + 1)
 
         # Aumenta a quantidade de balas a intervalos
-        Repeater(ammo_up, 1)
+        Repeater(ammo_up, 2)
 
     def update(self, events):
         now = datetime.now()
@@ -119,11 +119,20 @@ class Jogador(GameObject):
 
     def draw(self, screen):
         if globals.jogadas == 0:
-            screen.blit(pygame.image.load("assets/sprites/char1.png"), (self.pos[0], self.pos[1]))
+            screen.blit(
+                pygame.image.load("assets/sprites/char1.png"),
+                (self.pos[0], self.pos[1]),
+            )
         elif globals.jogadas < 5:
-            screen.blit(pygame.image.load("assets/sprites/char2.png"), (self.pos[0], self.pos[1]))
+            screen.blit(
+                pygame.image.load("assets/sprites/char2.png"),
+                (self.pos[0], self.pos[1]),
+            )
         else:
-            screen.blit(pygame.image.load("assets/sprites/char3.png"), (self.pos[0], self.pos[1]))
+            screen.blit(
+                pygame.image.load("assets/sprites/char3.png"),
+                (self.pos[0], self.pos[1]),
+            )
 
         for i in range(globals.vida):
             screen.blit(
