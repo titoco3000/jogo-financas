@@ -16,7 +16,7 @@ def run(screen):
     background = pygame.image.load("assets/sprites/menuinv.png")
     if globals.jogadas == 0:
         text = Text((100,100), "final1")
-    elif globals.jogadas < 10:
+    elif globals.jogadas < 5:
         text = Text((100,100), "final2")
     else:
         text = Text((100,100), "final3")

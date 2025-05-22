@@ -120,7 +120,7 @@ class Jogador(GameObject):
     def draw(self, screen):
         if globals.jogadas == 0:
             screen.blit(pygame.image.load("assets/sprites/char1.png"), (self.pos[0], self.pos[1]))
-        elif globals.jogadas < 10:
+        elif globals.jogadas < 5:
             screen.blit(pygame.image.load("assets/sprites/char2.png"), (self.pos[0], self.pos[1]))
         else:
             screen.blit(pygame.image.load("assets/sprites/char3.png"), (self.pos[0], self.pos[1]))

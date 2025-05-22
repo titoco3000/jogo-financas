@@ -16,7 +16,7 @@ def run(screen, nivel):
             globals.jogadas += 1
             if globals.jogadas == 1:
                 globals.max_ammo -= 1
-            if globals.jogadas == 3:
+            if globals.jogadas == 5:
                 globals.max_ammo -= 3
         running = False
 
@@ -32,7 +32,7 @@ def run(screen, nivel):
 
     if globals.jogadas == 0:
         background = pygame.image.load("assets/sprites/background1.png")
-    elif globals.jogadas < 10:
+    elif globals.jogadas < 5:
         background = pygame.image.load("assets/sprites/background2.png")
     else:
         background = pygame.image.load("assets/sprites/background3.png")
@@ -62,7 +62,7 @@ def run(screen, nivel):
         if globals.vida <= 0:
             running = False
 
-        if globals.inimigos_mortos_nesta_rodada >= 1:
+        if globals.inimigos_mortos_nesta_rodada >= 10 and globals.jogadas < 5:
             Botao(
                 pygame.rect.Rect(75, 590, 120, 50),
                 "Rodar roleta",
