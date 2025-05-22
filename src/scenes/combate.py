@@ -1,4 +1,5 @@
 import pygame
+from src.classes.botao import Botao
 from src.classes.jogador import Jogador
 from src.classes.inimigo import Spawner
 from src.classes.gameobject import GameObject
@@ -8,6 +9,17 @@ import src.classes.efeitos as efeitos
 
 
 def run(screen, nivel):
+    def rodarroleta():
+        nonlocal running
+        if globals.roleta == False:
+            globals.roleta = True
+            globals.jogadas += 1
+            if globals.jogadas == 1:
+                globals.max_ammo -= 1
+            if globals.jogadas == 3:
+                globals.max_ammo -= 3
+        running = False
+
     GameObject.clear_scene()
 
     globals.inimigos_mortos_nesta_rodada = 0
@@ -18,7 +30,13 @@ def run(screen, nivel):
     if globals.efeitos_no_jogador.has(efeitos.Publicidade):
         Publicidade()
 
-    background = pygame.image.load("assets/sprites/background.png")
+    if globals.jogadas == 0:
+        background = pygame.image.load("assets/sprites/background1.png")
+    elif globals.jogadas < 10:
+        background = pygame.image.load("assets/sprites/background2.png")
+    else:
+        background = pygame.image.load("assets/sprites/background3.png")
+
     clock = pygame.time.Clock()
 
     running = True
@@ -44,5 +62,12 @@ def run(screen, nivel):
         if globals.vida <= 0:
             running = False
 
-        if globals.inimigos_mortos_nesta_rodada >= 5:
-            running = False
+        if globals.inimigos_mortos_nesta_rodada >= 1:
+            Botao(
+                pygame.rect.Rect(75, 590, 120, 50),
+                "Rodar roleta",
+                border_color=(100, 100, 100),
+                border_width=2,
+                radius=10,
+                on_click=rodarroleta,
+            )

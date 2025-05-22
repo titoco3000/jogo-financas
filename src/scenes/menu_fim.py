@@ -1,5 +1,6 @@
 import pygame
 from src.classes.botao import Botao
+from src.classes.text import Text
 from src.classes.gameobject import GameObject
 import src.globals as globals
 
@@ -12,9 +13,17 @@ def run(screen):
         running = False
         globals.reset()
 
+    background = pygame.image.load("assets/sprites/menuinv.png")
+    if globals.jogadas == 0:
+        text = Text((100,100), "final1")
+    elif globals.jogadas < 10:
+        text = Text((100,100), "final2")
+    else:
+        text = Text((100,100), "final3")
+
     GameObject.clear_scene()
     Botao(
-        pygame.rect.Rect(100, 200, 200, 50),
+        pygame.rect.Rect(340, 500, 300, 50),
         "Voltar ao menu",
         border_color=(100, 100, 100),
         border_width=2,
@@ -32,6 +41,7 @@ def run(screen):
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
         GameObject.draw_all(screen)
 
         pygame.display.flip()

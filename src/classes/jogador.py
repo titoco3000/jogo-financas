@@ -12,9 +12,8 @@ from src.classes.timing import Repeater
 player_radius = 20  # tamanho do player (circulo)
 player_speed = 5
 
-tempo_delay = timedelta(seconds=0.4)
-max_ammo = 5  # maximo de balas
-intervalo_entre_tiros = timedelta(seconds=0.2)
+tempo_delay = timedelta(seconds=0.3)
+intervalo_entre_tiros = timedelta(seconds=0.15)
 
 
 class Jogador(GameObject):
@@ -34,10 +33,10 @@ class Jogador(GameObject):
         self.ultimo_tiro = datetime.now()
 
         def ammo_up():
-            self.ammo = min(max_ammo, self.ammo + 1)
+            self.ammo = min(globals.max_ammo, self.ammo + 1)
 
         # Aumenta a quantidade de balas a intervalos
-        Repeater(ammo_up, 2)
+        Repeater(ammo_up, 1)
 
     def update(self, events):
         now = datetime.now()
@@ -81,7 +80,6 @@ class Jogador(GameObject):
         usar_delay = globals.efeitos_no_jogador.has(efeitos.DelayMovimentacao)
 
         if usar_delay:
-            print(len(self.buffered_inputs))
             # Only buffer new movement if there is some input
             if direction_input.magnitude() > 0:
                 direction_input = direction_input.normalize()
@@ -120,9 +118,12 @@ class Jogador(GameObject):
         # self.display_bullet.y = self.pos.y - 10
 
     def draw(self, screen):
-        screen.blit(
-            pygame.image.load("assets/sprites/char.png"), (self.pos[0], self.pos[1])
-        )
+        if globals.jogadas == 0:
+            screen.blit(pygame.image.load("assets/sprites/char1.png"), (self.pos[0], self.pos[1]))
+        elif globals.jogadas < 10:
+            screen.blit(pygame.image.load("assets/sprites/char2.png"), (self.pos[0], self.pos[1]))
+        else:
+            screen.blit(pygame.image.load("assets/sprites/char3.png"), (self.pos[0], self.pos[1]))
 
         for i in range(globals.vida):
             screen.blit(

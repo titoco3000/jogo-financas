@@ -6,15 +6,17 @@ import src.globals as globals
 
 def run(screen):
     running = True
-
+    
     def iniciar_jogo():
         nonlocal running
-        print("a")
         running = False
+
+    background = pygame.image.load("assets/sprites/menu.png")
+    title = pygame.image.load("assets/sprites/title.png")
 
     GameObject.clear_scene()
     Botao(
-        pygame.rect.Rect(100, 200, 100, 50),
+        pygame.rect.Rect(330, 500, 300, 50),
         "Iniciar jogo",
         border_color=(100, 100, 100),
         border_width=2,
@@ -32,6 +34,8 @@ def run(screen):
         GameObject.update_all(events)
 
         screen.fill((0, 0, 0))
+        screen.blit(background, (0, 0))
+        screen.blit(title, (182, 50))
         GameObject.draw_all(screen)
 
         pygame.display.flip()
